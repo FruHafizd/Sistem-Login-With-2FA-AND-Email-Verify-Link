@@ -1,5 +1,5 @@
 <?php
-include '../config/connection.php';
+include 'config/connection.php';
 
 class PengelolaanBarang
 {
@@ -11,28 +11,50 @@ class PengelolaanBarang
         $this->conn = $db->connectionDatabase();
     }
 
-    public function addedTask()
+    public function addedItem()
     {
-        if (isset($_POST['added_task_btn'])) {
-            $title = $_POST['title'];
-            $description = $_POST['description'];
-            $due_date = $_POST['due_date'];
+        if (isset($_POST['added_item_btn'])) {
+            $nama = $_POST['nama'];
+            $kategori = $_POST['kategori'];
+            $deskripsi = $_POST['deskripsi'];
+            $jumlah_stok = $_POST['jumlah_stok'];
+            $harga = $_POST['harga'];
+            $pemasok = $_POST['pemasok'];
 
-            $query = "INSERT INTO tasks (title, description, due_date) VALUES (:title, :description, :due_date)";
+
+            $query = "INSERT INTO pengelolaan_Barang (nama,kategori,deskripsi,jumlah_stok,harga,pemasok) VALUES (:nama, :kategori, :deskripsi, :jumlah_stok, :harga, :pemasok)";
             $stmt = $this->conn->prepare($query);
             $result = $stmt->execute([
-                'title' => $title,
-                'description' => $description,
-                'due_date' => $due_date,
+                'nama' => $nama,
+                'kategori' => $kategori,
+                'deskripsi' => $deskripsi,
+                'jumlah_stok' => $jumlah_stok,
+                'harga' => $harga,
+                'pemasok' => $pemasok,
             ]);
 
             if ($result) {
                 $_SESSION['status'] = "Added Task Successfully";
-                header("Location: ../views/listTask.php");
+                header("Location: /barang");
             } else {
                 $_SESSION['status'] = "Added Task Failed";
-                header("Location: ../views/addedTask.php");
+                header("Location: /barang");
             }
         }
     }
+
+    public function displayItem()
+    {
+        $query = "SELECT pb.*, k.namakategori 
+        FROM pengelolaan_Barang pb
+        JOIN kategori k ON pb.kategori = k.kategori";
+
+        $sth = $this->conn->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        $sth->execute();
+        return $sth;
+    }
+
 }
+
+$code = new PengelolaanBarang();
+$code->addedItem();

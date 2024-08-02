@@ -40,8 +40,8 @@ include('template/header.php');
                             </div>
                         </form>
                         <div class="mt-3">
-                            <a href="register.php">REGISTER HERE</a> |
-                            <a href="resend-email-verification.php">RESEND EMAIL VERIFICATION</a> |
+                            <a href="/register">REGISTER HERE</a> |
+                            <a href="/resendemail">RESEND EMAIL VERIFICATION</a> |
                             <a href="password-reset.php">FORGOT PASSWORD?</a>
                         </div>
                     </div>
