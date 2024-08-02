@@ -33,7 +33,7 @@ class UserControllers
 
             if ($stmt->rowCount() > 0) {
                 $_SESSION['status'] = "Email Id Already Exists";
-                header("Location: ../../resource/views/register.php");
+                header("Location: /register");
                 exit();
             } else {
                 // Prepare and execute statement to insert new user
@@ -52,11 +52,11 @@ class UserControllers
                     $_SESSION['username'] = $this->username;
                     $_SESSION['email'] = $this->email;
                     $_SESSION['verify_token'] = $this->verify_token;
-                    header("Location: ../../resource/views/optionUsers.php");
+                    header("Location: /verifyuser");
                     exit();
                 } else {
                     $_SESSION['status'] = "Registration Failed";
-                    header("Location: ../../resource/views/register.php");
+                    header("Location: /register");
                     exit();
                 }
             }
@@ -91,26 +91,26 @@ class UserControllers
                                 'email' => $row['email'],
                             ];
                             $_SESSION['status'] = "You Are Logged In Successfully";
-                            header("Location: ../../resource/views/dashboard.php");
+                            header("Location: /home");
                             exit(0);
                         } else {
                             $_SESSION['status'] = "Please Verify Your Account To Log In";
-                            header("Location: ../../resource/views/optionUsers.php");
+                            header("Location: /verifyuser");
                             exit(0);
                         }
                     } else {
                         $_SESSION['status'] = "Invalid Email Or Password";
-                        header("Location: ../../resource/views/login.php");
+                        header("Location: /login");
                         exit(0);
                     }
                 } else {
                     $_SESSION['status'] = "Invalid Email Or Password";
-                    header("Location: ../../resource/views/login.php");
+                    header("Location: /login");
                     exit(0);
                 }
             } else {
                 $_SESSION['status'] = "All fields are Mandatory";
-                header("Location: ../../resource/views/login.php");
+                header("Location: /login");
                 exit(0);
             }
         }
@@ -143,21 +143,21 @@ class UserControllers
                     // Hancurkan sesi
                     session_destroy();
                     $_SESSION['status'] = "You have logged out successfully. Please verify your account again.";
-                    header("Location: ../../resource/views/login.php");
+                    header("Location: /login");
                     exit(0);
                 } else {
                     $_SESSION['status'] = "Logout Failed!";
-                    header("Location: ../../resource/views/login.php");
+                    header("Location: /login");
                     exit(0);
                 }
             } else {
                 $_SESSION['status'] = "This Email does not Exist";
-                header("Location: ../../resource/views/login.php");
+                header("Location: /login");
                 exit(0);
             }
         } else {
             $_SESSION['status'] = "Not Allowed";
-            header("Location: ../../resource/views/login.php");
+            header("Location: /login");
             exit(0);
         }
     }
@@ -186,21 +186,21 @@ class UserControllers
                         $verifyUser = new PhpMailerUser();
                         $verifyUser->resend_email_verify($name, $email, $verify_token);
                         $_SESSION['status'] = "Verification email has been sent to you email addres";
-                        header("Location: ../../resource/views/login.php");
+                        header("Location: /login");
                         exit(0);
                     } else {
                         $_SESSION['status'] = "Email Already Verified. Please Log In";
-                        header("Location: ../../resource/views/resend-email-verification.php");
+                        header("Location: /login");
                         exit(0);
                     }
                 } else {
                     $_SESSION['status'] = "Email Is not Registred. Please Registred Now";
-                    header("Location: ../../resource/views/register.php");
+                    header("Location: /register");
                     exit(0);
                 }
             } else {
                 $_SESSION['status'] = "Please Enter the Email field";
-                header("Location: ../../resource/views/resend-email-verification.php");
+                header("Location: /resendemail");
                 exit(0);
             }
         } else {
@@ -236,7 +236,7 @@ class UserControllers
                 header("Location: logout.php");
             } else {
                 $_SESSION['status'] = "Update Profile Failed";
-                header("Location: ../views/updateTask.php");
+                header("Location: /home");
             }
         }
     }

@@ -1,12 +1,7 @@
 <?php 
 session_start();
+include('template/header.php');
 
-if (isset($_SESSION['authenticated'])) {
-    $_SESSION['status'] = "You are already Logged in";
-    header("Location: dashboard.php");
-    exit(0);
-}
-include('../template/header.php');
 ?>
 
 <div class="py-5">
@@ -23,27 +18,30 @@ include('../template/header.php');
                 ?>
                 <div class="card shadow">
                     <div class="card-header">
-                        <h5>Login Form</h5>
+                        <h5 class="mb-0">Registration Form</h5>
                     </div>
                     <div class="card-body">
-                        <form action="../../app/controllers/userControllers.php" method="post">
+                        <form action="../controllers/userControllers.php" method="post">
+                            <div class="form-group mb-3">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" name="username" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="form-control" required>
+                            </div>
                             <div class="form-group mb-3">
                                 <label for="email">Email Address</label>
-                                <input type="email" name="email" id="email" class="form-control" required>
+                                <input type="email" id="email" name="email" class="form-control" required>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="password">Password</label>
-                                <input type="password" name="password" id="password" class="form-control" required>
+                                <input type="password" id="password" name="password" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary" name="login_now_btn">Login Now</button>
+                                <button type="submit" name="register_btn" class="btn btn-primary">Register Now</button>
                             </div>
                         </form>
-                        <div class="mt-3">
-                            <a href="register.php">REGISTER HERE</a> |
-                            <a href="resend-email-verification.php">RESEND EMAIL VERIFICATION</a> |
-                            <a href="password-reset.php">FORGOT PASSWORD?</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -51,4 +49,4 @@ include('../template/header.php');
     </div>
 </div>
 
-<?php include('../template/footer.php'); ?>
+<?php include('template/footer.php'); ?>

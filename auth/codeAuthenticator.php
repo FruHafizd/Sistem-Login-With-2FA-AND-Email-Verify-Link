@@ -20,7 +20,7 @@ include('../template/header.php');
                         <h5 class="mb-0">Code Authenticator</h5>
                     </div>
                     <div class="card-body">
-                        <form action="../../app/controllers/userControllers.php" method="post">
+                        <form action="../controllers/userControllers.php" method="post">
                             <div class="form-group mb-3">
                                 <label for="auth_code">Authentication Code</label>
                                 <input type="text" id="auth_code" name="auth_code" class="form-control" required>

@@ -1,7 +1,7 @@
 <?php 
-include('../template/header.php');
-include('../../app/controllers/authentication.php');
-include('../template/topbar.php');
+include('template/header.php');
+include('controllers/authentication.php');
+include('template/topbar.php');
 // session_destroy();
 
 ?>
@@ -18,7 +18,7 @@ include('../template/topbar.php');
                 }
                 ?>
             <h1>Hello, world!</h1>
-            <form action="../../app/controllers/codeAuthenticator.php" method="post">
+            <form action="controllers/codeAuthenticator.php" method="post">
                 <button type="submit" name="generate_totp_key" class="btn btn-primary mt-3">Generate TOTP Secret Key</button>
             </form>
         </div>
@@ -26,5 +26,5 @@ include('../template/topbar.php');
 </div>
 
 <?php 
-include('../template/footer.php');
+include('template/footer.php');
 ?>

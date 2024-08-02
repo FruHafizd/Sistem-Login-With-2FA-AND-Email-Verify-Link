@@ -1,8 +1,8 @@
 <?php 
-require('../template/header.php');
-require('../../app/controllers/authentication.php');
-require('../../app/controllers/userControllers.php');
-require('../template/topbar.php');
+require('template/header.php');
+require('controllers/authentication.php');
+require('controllers/userControllers.php');
+require('template/topbar.php');
 
 
 $email = $_SESSION['auth_user']['user_id'];
@@ -25,7 +25,7 @@ if (!$user) {
                         <h5 class="mb-0">Profile Edit</h5>
                     </div>
                     <div class="card-body">
-                        <form action="../../app/controllers/userControllers.php" method="post">
+                        <form action="../controllers/userControllers.php" method="post">
                             <input type="hidden" name="id" value="<?= htmlspecialchars($user['email']) ?>">
                             <div class="form-group mb-3">
                                 <label for="name">Name</label>
@@ -51,4 +51,4 @@ if (!$user) {
     </div>
 </div>
 
-<?php include('../template/footer.php') ?>
+<?php include('template/footer.php') ?>

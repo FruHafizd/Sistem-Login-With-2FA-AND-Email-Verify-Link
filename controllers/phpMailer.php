@@ -5,7 +5,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require '../../vendor/autoload.php';
+require '../vendor/autoload.php';
 
 class PhpMailerUser 
 {
@@ -32,7 +32,7 @@ class PhpMailerUser
                 <h2>You Have Registerd with email verification</h2>
                 <h5>Verify your email addres to login with the below given link</h5>
                 <br>
-                <a href='http://localhost:8321/app/controllers/verify.php?token=$verify_token'>Click Here</a>
+                <a href='http://localhost:8321/controllers/verify.php?token=$verify_token'>Click Here</a>
             ";
 
 
@@ -69,7 +69,7 @@ class PhpMailerUser
                 <h2>You Have Registerd with email verification</h2>
                 <h5>Verify your email addres to login with the below given link</h5>
                 <br>
-                <a href='http://localhost:8321/app/controllers/verify.php?token=$verify_token'>Click Here</a>
+                <a href='http://localhost:8321/controllers/verify.php?token=$verify_token'>Click Here</a>
             ";
 
 

@@ -3,7 +3,7 @@ session_start();
 use lfkeitel\phptotp\Totp;
 use lfkeitel\phptotp\Base32;
 include('../config/connection.php');
-require '../../vendor/autoload.php';
+require '../vendor/autoload.php';
 
 class codeAuthenticator 
 {
@@ -36,11 +36,11 @@ class codeAuthenticator
             if ($result) {
                 $_SESSION['status'] = "TOTP Secret Key generated successfully: " . $secret_key;
                 $_SESSION['totp_secret'] = $secret_key;
-                header("Location: ../../resource/views/dashboard.php");
+                header("Location: /dashboard");
                 exit();
             } else {
                 $_SESSION['status'] = "Failed to generate TOTP Secret Key";
-                header("Location: ../../resource/views/dashboard.php");
+                header("Location: /dashboard");
                 exit();
             }
         }

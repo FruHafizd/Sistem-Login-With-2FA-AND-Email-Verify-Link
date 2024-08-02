@@ -38,28 +38,28 @@ class Verify
 
                     if ($update_result) {
                         $_SESSION['status'] = "Your Account has been verified Successfully";
-                        header("Location: ../../resource/views/login.php");
+                        header("Location: /login");
                         exit(0);
                     } else {
                         $_SESSION['status'] = "Verification Failed!";
-                        header("Location: ../../resource/views/login.php");
+                        header("Location: /login");
                         exit(0);
                     }
 
                 } else {
                     $_SESSION['status'] = "Email Already Verified Please Login";
-                    header("Location: ../../resource/views/login.php");
+                    header("Location: /login");
                     exit(0);
                 }
             } else {
                 $_SESSION['status'] = "This Token does not Exist";
-                header("Location: ../../resource/views/login.php");
+                header("Location: /login");
                 exit(0);
             }
 
         } else {
             $_SESSION['status'] = "Not Allowed";
-            header("Location: ../../resource/views/login.php");
+            header("Location: /login");
             exit(0);
         }
     }

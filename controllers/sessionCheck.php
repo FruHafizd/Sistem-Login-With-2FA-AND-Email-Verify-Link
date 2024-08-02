@@ -18,12 +18,12 @@ if (isset($_SESSION['username']) && isset($_SESSION['email']) && isset($_SESSION
     $code = new PhpMailerUser();
     $code->sendVerifyEmail($username, $email, $verify_token);
 } else {
-    // // Debugging: Tampilkan pesan jika variabel sesi tidak ditemukan
-    // echo "Error: Verification information not found.";
+    // Debugging: Tampilkan pesan jika variabel sesi tidak ditemukan
+    echo "Error: Verification information not found.";
 
-    // // Redirect to registration page or handle the error
-    // $_SESSION['status'] = "Error: Verification information not found.";
-    // header("Location: ../../resource/views/login.php");
-    // exit();
+    // Redirect to registration page or handle the error
+    $_SESSION['status'] = "Error: Verification information not found.";
+    header("Location: /login");
+    exit();
 }
 ?>
