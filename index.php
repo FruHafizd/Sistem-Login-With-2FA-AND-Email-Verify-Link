@@ -34,5 +34,7 @@ $router->get('/resendemail','resend-email-verification.php');
 
 $router->get('/barang','/PengelolaanBarang/index.php');
 $router->get('/tambahBarang','/PengelolaanBarang/add.php');
-
 $router->get('/ubahBarang','/PengelolaanBarang/update.php');
+
+$router->get('/emailVerify','/auth/emailVerification.php');
+$router->get('/profile','userProfile.php');

@@ -1,6 +1,6 @@
 <?php
 include('../config/connection.php');
-require('phpMailer.php');
+include('phpMailer.php');
 session_start();
 
 class UserControllers
@@ -21,44 +21,59 @@ class UserControllers
         if (isset($_POST['register_btn'])) {
             $this->email = $_POST['email'];
             $password = $_POST['password'];
+            $confirm_password = $_POST['confirm_password'];
             $password_hashed = password_hash($password, PASSWORD_BCRYPT);
             $phone = $_POST['phone'];
             $this->username = $_POST['username'];
             $this->verify_token = md5(rand());
+            $minLength = 8;
 
             // Prepare and execute statement to check if email already exists
             $check_email_query = "SELECT email FROM users WHERE email = :email LIMIT 1";
             $stmt = $this->conn->prepare($check_email_query);
             $stmt->execute(['email' => $this->email]);
 
-            if ($stmt->rowCount() > 0) {
-                $_SESSION['status'] = "Email Id Already Exists";
+            if (strlen($password) < $minLength || strlen($confirm_password) < $minLength) {
+                $_SESSION['status'] = "Password Too Short, Minimum Password 8 Characters";
                 header("Location: /register");
                 exit();
-            } else {
-                // Prepare and execute statement to insert new user
-                $query = "INSERT INTO users (username, email, password, phone, verify_token) VALUES (:username, :email, :password, :phone, :verify_token)";
-                $stmt = $this->conn->prepare($query);
-                $result = $stmt->execute([
-                    'username' => $this->username,
-                    'email' => $this->email,
-                    'password' => $password_hashed,
-                    'phone' => $phone,
-                    'verify_token' => $this->verify_token
-                ]);
+            }
 
-                if ($result) {
-                    $_SESSION['status'] = "Registration Successfully, Please Verify Your Account";
-                    $_SESSION['username'] = $this->username;
-                    $_SESSION['email'] = $this->email;
-                    $_SESSION['verify_token'] = $this->verify_token;
-                    header("Location: /verifyuser");
-                    exit();
-                } else {
-                    $_SESSION['status'] = "Registration Failed";
+            if ($password == $confirm_password) {
+                if ($stmt->rowCount() > 0) {
+                    $_SESSION['status'] = "Email Id Already Exists";
                     header("Location: /register");
                     exit();
+                } else {
+                    // Prepare and execute statement to insert new user
+                    $query = "INSERT INTO users (username, email, password, phone, verify_token) VALUES (:username, :email, :password, :phone, :verify_token)";
+                    $stmt = $this->conn->prepare($query);
+                    $result = $stmt->execute([
+                        'username' => $this->username,
+                        'email' => $this->email,
+                        'password' => $password_hashed,
+                        'phone' => $phone,
+                        'verify_token' => $this->verify_token
+                    ]);
+
+                    if ($result) {
+                        $_SESSION['status'] = "Registration Successfully, Please Verify Your Account";
+                        $_SESSION['username'] = $this->username;
+                        $_SESSION['email'] = $this->email;
+                        $_SESSION['verify_token'] = $this->verify_token;
+                        $_SESSION['is_verified'] = false;
+                        header("Location: /emailVerify");
+                        exit();
+                    } else {
+                        $_SESSION['status'] = "Registration Failed";
+                        header("Location: /register");
+                        exit();
+                    }
                 }
+            } else {
+                $_SESSION['status'] = "Password Doesnt Match With Confirm Password";
+                header("Location: /register");
+                exit();
             }
         }
     }
@@ -75,17 +90,22 @@ class UserControllers
                 $stmt = $this->conn->prepare($login_query);
                 $stmt->bindParam(':email', $email, PDO::PARAM_STR);
                 $stmt->execute();
-
+                
                 if ($stmt->rowCount() > 0) {
                     $row = $stmt->fetch(PDO::FETCH_ASSOC);
                     $hashed_password = $row['password'];
-
-                    // Verifikasi password
+                    
+                    $_SESSION['auth_user'] = [
+                        'verify_token' => $row['verify_token'],
+                        'username' => $row['username'],
+                        'email' => $row['email'],
+                    ];
                     if (password_verify($password, $hashed_password)) {
-                        if ($row["verify_status"] == "1") {
+                        if ($_SESSION['is_verified'] == TRUE) {
                             $_SESSION['authenticated'] = TRUE;
                             $_SESSION['auth_user'] = [
                                 'user_id' => $row['id'],
+                                'verify_token' => $row['verify_token'],
                                 'username' => $row['username'],
                                 'phone' => $row['phone'],
                                 'email' => $row['email'],
@@ -162,7 +182,6 @@ class UserControllers
         }
     }
 
-
     public function resendEmail()
     {
         if (isset($_POST['resend_email_verify_btn'])) {
@@ -175,16 +194,14 @@ class UserControllers
                 $stmt->bindParam(':email', $email, PDO::PARAM_STR);
                 $stmt->execute();
 
-
                 if ($stmt->rowCount() > 0) {
                     $row = $stmt->fetch(PDO::FETCH_ASSOC);
                     if ($row['verify_status'] == "0") {
-
                         $name = $row['name'];
                         $email = $row['email'];
                         $verify_token = $row['verify_token'];
                         $verifyUser = new PhpMailerUser();
-                        $verifyUser->resend_email_verify($name, $email, $verify_token);
+                        $verifyUser->resend_email_verify($name,$email,$verify_token);
                         $_SESSION['status'] = "Verification email has been sent to you email addres";
                         header("Location: /login");
                         exit(0);
@@ -209,7 +226,7 @@ class UserControllers
     }
 
     public function getUserById($email)
-    {   
+    {
         $query = "SELECT * FROM users WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $email, PDO::PARAM_INT);
@@ -223,7 +240,7 @@ class UserControllers
             $name = $_POST['name'];
             $phone = $_POST['phone'];
             $id = $_POST['email'];
-            
+
             $query = "UPDATE users SET name = :name, phone = :phone WHERE email = :email";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':email', $id, PDO::PARAM_STR);
@@ -240,8 +257,6 @@ class UserControllers
             }
         }
     }
-
-
 }
 
 
@@ -251,6 +266,6 @@ class UserControllers
 $code = new UserControllers();
 $code->register();
 $code->login();
-$code->resendEmail();
 $code->updateUser();
+$code->resendEmail();
 $code->logout();

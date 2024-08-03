@@ -38,6 +38,10 @@ include('template/header.php');
                                 <label for="password">Password</label>
                                 <input type="password" id="password" name="password" class="form-control" required>
                             </div>
+                            <div class="form-group mb-3">
+                                <label for="confirm_password">Confirm Password</label>
+                                <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
+                            </div>
                             <div class="form-group">
                                 <button type="submit" name="register_btn" class="btn btn-primary">Register Now</button>
                             </div>

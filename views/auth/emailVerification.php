@@ -1,7 +1,7 @@
 <?php 
 session_start();
-include('../template/header.php');
-include('../controllers/sessionCheck.php');
+include('template/header.php');
+include('controllers/sessionCheck.php');
 
 ?>
 
@@ -31,4 +31,4 @@ include('../controllers/sessionCheck.php');
     </div>
 </div>
 
-<?php include('../template/footer.php'); ?>
+<?php include('template/footer.php'); ?>

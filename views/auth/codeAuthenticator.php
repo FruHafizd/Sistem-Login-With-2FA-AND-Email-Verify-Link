@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include('../template/header.php');
+include('template/header.php');
 ?>
 
 <div class="py-5">
@@ -36,4 +36,4 @@ include('../template/header.php');
     </div>
 </div>
 
-<?php include('../template/footer.php'); ?>
+<?php include('template/footer.php'); ?>

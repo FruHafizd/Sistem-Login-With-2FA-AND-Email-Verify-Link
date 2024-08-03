@@ -21,7 +21,7 @@ include('template/header.php');
                     </div>
                     <div class="card-body text-center">
                         <p>Please choose a verification method:</p>
-                        <a href="../auth/emailVerification.php" class="btn btn-outline-primary btn-lg m-2">Email Verification</a>
+                        <a href="/emailVerify" class="btn btn-outline-primary btn-lg m-2">Email Verification</a>
                         <a href="../auth/codeAuthenticator.php" class="btn btn-outline-secondary btn-lg m-2">Code Authenticator</a>
                     </div>
                 </div>
