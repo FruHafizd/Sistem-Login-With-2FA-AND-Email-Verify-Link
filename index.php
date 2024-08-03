@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * 
  * Require files
@@ -37,4 +38,10 @@ $router->get('/tambahBarang','/PengelolaanBarang/add.php');
 $router->get('/ubahBarang','/PengelolaanBarang/update.php');
 
 $router->get('/emailVerify','/auth/emailVerification.php');
-$router->get('/profile','userProfile.php');
+
+$email = $_SESSION['auth_user']['email']; // Ambil email dari session
+$router->get("/profile?id=" . $email, 'userProfile.php');
+
+
+
+

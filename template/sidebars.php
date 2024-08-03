@@ -121,8 +121,8 @@
                 <span class="d-print-block"><strong><?= $_SESSION['auth_user']['username']; ?></strong></span>
             </a>
             <ul class="dropdown-menu text-small shadow">
+                <li><a class="dropdown-item" href="/profile?id=<?= $_SESSION['auth_user']['email']; ?>">Profile</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="/profile">Profile</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>

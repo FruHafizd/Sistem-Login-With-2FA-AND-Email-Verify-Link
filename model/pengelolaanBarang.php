@@ -1,5 +1,5 @@
 <?php
-include 'config/connection.php';
+include __DIR__ .'/../config/connection.php';
 
 class PengelolaanBarang
 {
