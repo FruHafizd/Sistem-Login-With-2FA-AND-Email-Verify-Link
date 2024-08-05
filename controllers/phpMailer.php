@@ -97,7 +97,10 @@ class PhpMailerUser
             // Penerima
             $mail->setFrom('your_email@example.com', $get_name);
             $mail->addAddress($get_email);
-        
+
+            $get_email = $_SESSION['auth_user']['email']; // Ambil email dari session
+            $token = $_SESSION['auth_user']['verify_token']; 
+            
             // Konten
             $mail->isHTML(true);
             $mail->Subject = 'Reset Password Notification';
@@ -106,7 +109,7 @@ class PhpMailerUser
                 <h2>Hello</h2>
                 <h5>You are receiving this email because we received a password reset request for your account.</h5>
                 <br>
-                <a href='http://localhost:8321/views/password-change.php?token=$token&email=$get_email'>Click Here</a>
+                <a href='http://localhost:8321/changePassword?token=$token&email=$get_email'>Click Here</a> 
             ";
 
 

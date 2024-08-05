@@ -22,6 +22,16 @@ include('template/sidebars.php');
                     </button>
                 </div>
             </div>
+
+            <form action="controllers/codeAuthenticator.php" method="post">
+                <button type="submit" name="generate_totp_key" class="btn btn-primary mt-3">Generate TOTP Secret Key</button>
+            </form>
+
+
+
+
+
+
 </main>
 
 

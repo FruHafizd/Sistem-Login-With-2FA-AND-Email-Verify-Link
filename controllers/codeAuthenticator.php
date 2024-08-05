@@ -5,7 +5,7 @@ use lfkeitel\phptotp\Base32;
 include('../config/connection.php');
 require '../vendor/autoload.php';
 
-class codeAuthenticator 
+class CodeAuthenticator 
 {
     private $conn;
 
@@ -20,7 +20,7 @@ class codeAuthenticator
         return Base32::encode(random_bytes(16)); 
     }
 
-    public function codeAuthenticator()
+    public function generateTotpKey()
     {
         if (isset($_POST['generate_totp_key'])) {
             $email = $_SESSION['auth_user']['email'];
@@ -34,7 +34,7 @@ class codeAuthenticator
             ]);
 
             if ($result) {
-                $_SESSION['status'] = "TOTP Secret Key generated successfully: " . $secret_key;
+                $_SESSION['status'] = "TOTP Secret Key generated successfully.";
                 $_SESSION['totp_secret'] = $secret_key;
                 header("Location: /dashboard");
                 exit();
@@ -56,7 +56,9 @@ class codeAuthenticator
     
         // Ambil hasil
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        var_dump($result);
+        
+        // Pastikan hasil tidak kosong
+        return $result ? $result['secret_key'] : null;
     }
 
     public function createTotpCode()
@@ -69,37 +71,30 @@ class codeAuthenticator
             $base32SecretKey = Base32::decode($secret);
 
             // Inisialisasi objek Totp dengan secret key yang didekode
-            $totp = new Totp($base32SecretKey);
-            
-            // Generate TOTP code
-            $totpCode = $totp->generateToken($base32SecretKey); // Pastikan `generateToken()` adalah metode yang benar
+            $totp = new Totp('sha1', 0, 30); // Algoritma, timestamp, dan interval
 
-            // Tampilkan kode dan secret key untuk debugging
-            var_dump($totpCode);
-            var_dump($secret); // Tampilkan secret key dalam format Base32
-            var_dump($base32SecretKey); // Tampilkan secret key yang didekode
+            // Generate TOTP code
+            $totpCode = $totp->generateToken($base32SecretKey);
+
+            return $totpCode;
         } else {
             echo "Secret key tidak ditemukan.";
+            return null;
         }
+    }
+
+    public function getTotpCodeUser()
+    {
+        $secretKey = $this->getSecretKey();
+
+        return $this->createTotpCode($secretKey);
     }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-    
 }
 
-$codeAuthen = new codeAuthenticator;
-$codeAuthen->codeAuthenticator();
+$codeAuthen = new CodeAuthenticator();
+$codeAuthen->generateTotpKey(); // Ganti nama metode jika perlu
 $codeAuthen->createTotpCode();

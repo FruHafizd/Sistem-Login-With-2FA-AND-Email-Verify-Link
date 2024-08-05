@@ -38,9 +38,14 @@ $router->get('/tambahBarang','/PengelolaanBarang/add.php');
 $router->get('/ubahBarang','/PengelolaanBarang/update.php');
 
 $router->get('/emailVerify','/auth/emailVerification.php');
+$router->get('/authenticationApplication','/auth/codeAuthenticator.php');
 
 $email = $_SESSION['auth_user']['email']; // Ambil email dari session
+$token = $_SESSION['auth_user']['verify_token']; 
 $router->get("/profile?id=" . $email, 'userProfile.php');
+
+$router->get('/resetPassword','/passwordReset/password-reset.php');
+$router->get('/changePassword?token='.$token.'&email='.$email,'/passwordReset/password-change.php');
 
 
 

@@ -42,7 +42,7 @@ include('template/header.php');
                         <div class="mt-3">
                             <a href="/register">REGISTER HERE</a> |
                             <a href="/resendemail">RESEND EMAIL VERIFICATION</a> |
-                            <a href="password-reset.php">FORGOT PASSWORD?</a>
+                            <a href="/resetPassword">FORGOT PASSWORD?</a>
                         </div>
                     </div>
                 </div>

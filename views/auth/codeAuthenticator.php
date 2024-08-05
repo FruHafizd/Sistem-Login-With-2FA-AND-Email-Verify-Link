@@ -23,7 +23,7 @@ include('template/header.php');
                         <form action="../controllers/userControllers.php" method="post">
                             <div class="form-group mb-3">
                                 <label for="auth_code">Authentication Code</label>
-                                <input type="text" id="auth_code" name="auth_code" class="form-control" required>
+                                <input type="number" id="totpCode" name="totpCode"  class="form-control" required>
                             </div>
                             <div class="form-group text-center">
                                 <button type="submit" name="authenticator_btn" class="btn btn-primary">Authenticate</button>
