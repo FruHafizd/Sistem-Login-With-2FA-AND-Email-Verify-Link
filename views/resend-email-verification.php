@@ -32,6 +32,10 @@ include('template/header.php');
                                 <input type="email" name="email" class="form-control" placeholder="Enter Your Email Address" required>
                             </div>
                             <div class="form-group mb-3">
+                                <!-- reCAPTCHA -->
+                                <div class="g-recaptcha" data-sitekey="6Ld9sR8qAAAAABS2bTSfofuFn4ancyAqgjFdprut"></div>
+                            </div>
+                            <div class="form-group mb-3">
                                 <button type="submit" name="resend_email_verify_btn" class="btn btn-primary">Submit</button>
                             </div>
                         </form>

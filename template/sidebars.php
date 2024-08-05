@@ -23,7 +23,7 @@
         </symbol>
     </svg>
     <!-- <button class="btn btn-outline-secondary" id="sidebarToggle"><i class="bi bi-arrows-expand-vertical"></i></button> -->
-
+    
     <aside class="collapse show collapse-horizontal col-sm-2 p-3 border-end bg-body-tertiary" id="collapseWidthExample">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
             <svg class="bi pe-none me-2" width="40" height="32">

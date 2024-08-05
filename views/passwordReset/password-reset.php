@@ -29,6 +29,10 @@ include('template/header.php');
                                 <input type="email" name="email" class="form-control" placeholder="Enter Email Address" required>
                             </div>
                             <div class="form-group mb-3">
+                                <!-- reCAPTCHA -->
+                                <div class="g-recaptcha" data-sitekey="6Ld9sR8qAAAAABS2bTSfofuFn4ancyAqgjFdprut"></div>
+                            </div>
+                            <div class="form-group mb-3">
                                 <button type="submit" name="password_reset_link" class="btn btn-primary">Send Password Reset Link</button>
                             </div>
                         </form>

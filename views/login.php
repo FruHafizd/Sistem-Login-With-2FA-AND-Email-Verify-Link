@@ -35,6 +35,10 @@ include('template/header.php');
                                 <label for="password">Password</label>
                                 <input type="password" name="password" id="password" class="form-control" required>
                             </div>
+                            <div class="form-group mb-3">
+                                <!-- reCAPTCHA -->
+                                <div class="g-recaptcha" data-sitekey="6Ld9sR8qAAAAABS2bTSfofuFn4ancyAqgjFdprut"></div>
+                            </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary" name="login_now_btn">Login Now</button>
                             </div>

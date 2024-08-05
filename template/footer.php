@@ -26,6 +26,8 @@
     </script>
 
     <script>
+        
+
         function changeclass() {
             $("#main").toggleClass('col-sm-10 col-sm-12');
         }
