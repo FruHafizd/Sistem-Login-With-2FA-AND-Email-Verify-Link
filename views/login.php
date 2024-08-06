@@ -1,6 +1,4 @@
 <?php 
-session_start();
-
 if (isset($_SESSION['authenticated'])) {
     $_SESSION['status'] = "You are already Logged in";
     header("Location: /dashboard");

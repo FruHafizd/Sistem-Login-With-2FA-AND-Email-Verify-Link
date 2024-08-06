@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . ('/config/connection.php');
+require_once __DIR__  . '/../config/connection.php';
 include('phpMailer.php');
 include('codeAuthenticator.php');
 include('loginAttempt.php');
@@ -126,9 +126,12 @@ class UserControllers
                     $hashed_password = $row['password'];
 
                     $_SESSION['auth_user'] = [
+                        'user_id' => $row['id'],
                         'verify_token' => $row['verify_token'],
                         'username' => $row['username'],
+                        'phone' => $row['phone'],
                         'email' => $row['email'],
+                        'secret_key' => $row['secret_key'],
                     ];
 
                     if (password_verify($password, $hashed_password)) {
@@ -223,24 +226,24 @@ class UserControllers
 
     public function getUserById($email)
     {
-        $query = "SELECT * FROM users WHERE id = :id";
+        $query = "SELECT * FROM users WHERE email = :email";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $email, PDO::PARAM_INT);
-        $stmt->execute();
+        $stmt->execute(['email' => $email]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
 
     public function updateUser()
     {
         if (isset($_POST['update_profile'])) {
-            $name = $_POST['name'];
+            $username = $_POST['username'];
             $phone = $_POST['phone'];
             $id = $_POST['email'];
 
-            $query = "UPDATE users SET name = :name, phone = :phone WHERE email = :email";
+            $query = "UPDATE users SET username = :username, phone = :phone WHERE email = :email";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':email', $id, PDO::PARAM_STR);
-            $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
             $stmt->bindParam(':phone', $phone, PDO::PARAM_INT);
             $stmt->execute();
 

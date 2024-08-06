@@ -1,8 +1,7 @@
 <?php
 session_start();
 
-include __DIR__ . '/config/connection.php';
-
+require_once __DIR__  .'/../config/connection.php';
 class LoginAttempt {
     private $conn;
     private $maxAttempts = 5;

@@ -12,26 +12,21 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"></script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <script src="dashboard.js"></script>
-    <script>
-        new Chartist.Line('#traffic-chart', {
-            labels: ['January', 'Februrary', 'March', 'April', 'May', 'June'],
-            series: [
-                [23000, 25000, 19000, 34000, 56000, 64000]
-            ]
-        }, {
-            low: 0,
-            showArea: true
-        });
-    </script>
 
     <script>
-        
+        document.addEventListener('DOMContentLoaded', function() {
+            var qrCodeUrl = '<?= isset($_SESSION['otpauth_url']) ? $_SESSION['otpauth_url'] : ''; ?>';
+            var qrcode = new QRCode(document.getElementById("qrcode"), {
+                text: qrCodeUrl,
+                width: 128,
+                height: 128
+            });
+        });
 
         function changeclass() {
             $("#main").toggleClass('col-sm-10 col-sm-12');
         }
     </script>
-</body>
+    </body>
 
-</html>
+    </html>

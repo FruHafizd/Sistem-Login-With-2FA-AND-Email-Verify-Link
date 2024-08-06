@@ -1,4 +1,5 @@
 <?php
+
 class Connection {
     public function connectionDatabase() {
         $servername = "localhost";
