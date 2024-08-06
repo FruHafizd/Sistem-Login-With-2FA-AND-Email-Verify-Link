@@ -1,5 +1,5 @@
 <?php
-include 'config/connection.php';
+require_once 'config/connection.php';
 
 class Kategori 
 {   

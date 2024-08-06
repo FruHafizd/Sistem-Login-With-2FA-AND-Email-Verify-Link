@@ -43,6 +43,38 @@ class PengelolaanBarang
         }
     }
 
+    public function updateItem()
+    {
+        if (isset($_POST['update_item_btn'])) {
+            $nama = $_POST['nama'];
+            $kategori = $_POST['kategori'];
+            $deskripsi = $_POST['deskripsi'];
+            $jumlah_stok = $_POST['jumlah_stok'];
+            $harga = $_POST['harga'];
+            $pemasok = $_POST['pemasok'];
+            $id = $_POST['id'];
+
+            $query = "UPDATE pengelolaan_Barang SET nama = :nama, kategori = :kategori, deskripsi = :deskripsi, jumlah_stok = :jumlah_stok, harga = :harga, pemasok = :pemasok WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':nama', $nama, PDO::PARAM_STR);
+            $stmt->bindParam(':kategori', $kategori, PDO::PARAM_STR);
+            $stmt->bindParam(':deskripsi', $deskripsi, PDO::PARAM_STR);
+            $stmt->bindParam(':jumlah_stok', $jumlah_stok, PDO::PARAM_INT);
+            $stmt->bindParam(':harga', $harga, PDO::PARAM_STR);
+            $stmt->bindParam(':pemasok', $pemasok, PDO::PARAM_STR);
+            $result = $stmt->execute();
+
+            if ($result) {
+                $_SESSION['status'] = "Added Task Successfully";
+                header("Location: /barang");
+            } else {
+                $_SESSION['status'] = "Added Task Failed";
+                header("Location: /barang");
+            }
+        }
+    }
+
     public function displayItem()
     {
         $query = "SELECT pb.*, k.namakategori 

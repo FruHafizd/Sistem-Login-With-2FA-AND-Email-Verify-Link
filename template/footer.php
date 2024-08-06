@@ -13,6 +13,9 @@
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var qrCodeUrl = '<?= isset($_SESSION['otpauth_url']) ? $_SESSION['otpauth_url'] : ''; ?>';
