@@ -56,7 +56,7 @@ $codeAuthen->generateQR(); // Pastikan QR code dihasilkan
 
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email Address</label>
-                                        <input type="email" id="email" name="email" class="form-control" value="<?= htmlspecialchars($user['email']) ?>" required readonly>
+                                        <input type="email" id="email" name="email" class="form-contol" value="<?= htmlspecialchars($user['email']) ?>" required readonly>
                                     </div>
 
                                     <div class="d-flex justify-content-between">
