@@ -1,52 +1,40 @@
-### **Sistem Manajemen Inventaris dengan Fitur Pelacakan dan Pelaporan**
 
-#### **Deskripsi Proyek**
 
-Buatlah aplikasi web **Sistem Manajemen Inventaris** yang memungkinkan bisnis untuk mengelola stok barang mereka dengan efisien. Sistem ini harus mendukung berbagai fitur pelacakan dan pelaporan untuk membantu pengguna dalam mengelola inventaris mereka secara menyeluruh.
+### Sistem Login dengan Verifikasi Email dan 2FA (Two-Factor Authentication)
 
-#### **Fitur Utama**
+Proyek ini mengimplementasikan sistem login yang aman dengan dua lapisan verifikasi, yaitu verifikasi email dan autentikasi dua faktor (2FA) menggunakan QR code. Sistem ini dirancang untuk meningkatkan keamanan akun pengguna dengan memastikan bahwa hanya pemilik sah yang dapat mengakses akun mereka.
 
-1. **Pendaftaran dan Manajemen Pengguna**
-   - Registrasi dan login pengguna dengan autentikasi berbasis email.
-   - Profil pengguna dengan kemampuan untuk mengelola informasi akun dan pengaturan.
+#### Fitur Utama:
+1. **Verifikasi Email:**
+   - Setelah pendaftaran, pengguna akan menerima email verifikasi untuk mengaktifkan akun mereka.
+   - Email ini berisi tautan unik yang harus diklik oleh pengguna untuk memverifikasi kepemilikan email tersebut.
+   - Proses ini mencegah penggunaan email palsu dan memastikan bahwa pengguna dapat menerima komunikasi penting dari sistem.
 
-2. **Pengelolaan Barang**
-   - Menambahkan, mengedit, dan menghapus item inventaris.
-   - Menyimpan informasi detail tentang barang seperti nama, kategori, deskripsi, jumlah stok, harga, dan pemasok.
+2. **Autentikasi Dua Faktor (2FA):**
+   - Selain verifikasi email, pengguna juga dapat mengaktifkan 2FA sebagai langkah keamanan tambahan.
+   - Sistem ini menggunakan standar TOTP (Time-based One-Time Password), di mana pengguna harus memindai QR code yang disediakan untuk menghubungkan aplikasi autentikator seperti Google Authenticator atau Authy dengan akun mereka.
+   - Setiap kali login, pengguna harus memasukkan kode yang dihasilkan oleh aplikasi autentikator selain kredensial standar (username dan password).
+   - Hal ini memastikan bahwa meskipun kredensial utama (username/password) dicuri, akun tetap terlindungi oleh lapisan keamanan kedua.
 
-3. **Pelacakan Stok**
-   - Melacak pergerakan barang masuk dan keluar dari stok.
-   - Mengelola dan memantau level stok minimum dan maksimum untuk mendapatkan notifikasi.
+3. **Manajemen QR Code:**
+   - Pengguna dapat mengakses dan memindai QR code dari halaman profil mereka untuk mengaktifkan 2FA.
+   - QR code ini dikaitkan dengan TOTP secret key yang disimpan aman di server, sehingga kode yang dihasilkan oleh aplikasi autentikator selalu sinkron dengan server.
 
-4. **Pengelolaan Pesanan**
-   - Membuat dan mengelola pesanan pembelian dan penjualan.
-   - Menyimpan informasi tentang supplier dan pelanggan.
+4. **Pengaturan dan Pengelolaan 2FA:**
+   - Pengguna memiliki opsi untuk menonaktifkan 2FA dari pengaturan akun mereka jika tidak lagi diperlukan.
+   - TOTP secret key disimpan secara permanen untuk memastikan kode yang dihasilkan oleh aplikasi autentikator tetap valid meskipun halaman direfresh.
 
-5. **Fitur Peringatan dan Notifikasi**
-   - Notifikasi otomatis untuk level stok rendah, kedaluwarsa barang, atau pesanan yang belum diproses.
-   - Pengaturan untuk frekuensi dan jenis notifikasi.
+#### Keuntungan:
+- **Keamanan Ganda:** Kombinasi verifikasi email dan 2FA membuat akun lebih sulit untuk diretas.
+- **Kenyamanan Pengguna:** Dengan integrasi QR code, mengaktifkan 2FA menjadi mudah dan cepat.
+- **Fleksibilitas:** Pengguna dapat memilih apakah ingin mengaktifkan atau menonaktifkan 2FA sesuai kebutuhan.
 
-6. **Pelaporan dan Analitik**
-   - Laporan tentang pergerakan inventaris, nilai stok, dan laporan keuangan.
-   - Grafik dan diagram untuk analisis data inventaris.
+#### Teknologi yang Digunakan:
+- **Backend:** PHP
+- **Autentikasi:** Authentication, TOTP
+- **Database:** MySQL/MariaDB
+- **Library Pihak Ketiga:** Authenticator, QR Code Generator, Google Captcha
 
-7. **Pencarian dan Filter**
-   - Fitur pencarian untuk menemukan barang berdasarkan nama, kategori, atau kode.
-   - Filter berdasarkan kategori, status stok, atau rentang tanggal.
 
-8. **Keamanan dan Privasi**
-   - Pengamanan data inventaris dan informasi pengguna.
-   - Hak akses pengguna untuk mengelola dan melihat data berdasarkan peran (misalnya, admin, staf gudang, manajer).
 
-#### **Tantangan Teknis**
-
-- **Autentikasi dan Otorisasi**: Pengelolaan sesi pengguna dengan PHP native, termasuk hak akses berbasis peran.
-- **Pelacakan Stok**: Implementasi sistem pelacakan pergerakan barang dengan akurasi tinggi.
-- **Pelaporan dan Analitik**: Pengembangan algoritma untuk menghasilkan laporan dan grafik yang akurat.
-- **Notifikasi dan Peringatan**: Sistem notifikasi berbasis email atau SMS untuk peringatan stok rendah dan kedaluwarsa.
-
-#### **Pasar dan Kebutuhan**
-
-Sistem manajemen inventaris sangat dicari dalam berbagai industri, termasuk ritel, distribusi, dan manufaktur. Perusahaan perlu alat yang dapat membantu mereka mengelola stok dengan efisien, meminimalkan kehilangan, dan mengoptimalkan rantai pasokan.
-
-Proyek ini akan memberikan Anda kesempatan untuk menunjukkan kemampuan dalam membangun aplikasi web yang komprehensif dan menangani data secara efektif. Jika Anda memerlukan bantuan lebih lanjut atau penyesuaian, jangan ragu untuk bertanya!
+---
