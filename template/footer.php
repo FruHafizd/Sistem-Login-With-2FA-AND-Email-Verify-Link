@@ -29,6 +29,30 @@
         function changeclass() {
             $("#main").toggleClass('col-sm-10 col-sm-12');
         }
+
+        $(document).ready(function() {
+            $('.btn-primary').on('click', function() {
+                var id = $(this).data('id');
+                $.ajax({
+                    url: '../controllers/getItem.php',
+                    type: 'GET',
+                    data: {
+                        id: id
+                    },
+                    success: function(response) {
+                        var item = JSON.parse(response);
+                        $('#exampleModal').modal('show');
+                        $('#exampleModal #id').val(item.id);
+                        $('#exampleModal #nama').val(item.nama);
+                        $('#exampleModal #kategori').val(item.kategori);
+                        $('#exampleModal #deskripsi').val(item.deskripsi);
+                        $('#exampleModal #jumlah_stok').val(item.jumlah_stok);
+                        $('#exampleModal #harga').val(item.harga);
+                        $('#exampleModal #pemasok').val(item.pemasok);
+                    }
+                });
+            });
+        });
     </script>
     </body>
 

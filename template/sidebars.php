@@ -81,12 +81,12 @@
         <!-- Admin Section Role -->
         <ul class="nav nav-pills flex-column mb-auto">
             <li>
-                <a href="#" class="nav-link link-body-emphasis">
+                <a href="/logLogin" class="nav-link link-body-emphasis">
                     <p class="bi bi-table" style="position:fixed;"> Log Attempt</p><br>
                 </a>
             </li>
             <li>
-                <a href="/barang" class="nav-link link-body-emphasis">
+                <a href="/listaccount" class="nav-link link-body-emphasis">
                     <p class="bi bi-grid" style="position:fixed;"> Daftar Akun</p><br>
                 </a>
             </li>

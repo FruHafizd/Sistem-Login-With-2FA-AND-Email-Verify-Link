@@ -1,5 +1,5 @@
 <?php
-include __DIR__ .'/../config/connection.php';
+include __DIR__ . '/../config/connection.php';
 
 class PengelolaanBarang
 {
@@ -46,13 +46,16 @@ class PengelolaanBarang
     public function updateItem()
     {
         if (isset($_POST['update_item_btn'])) {
+            $id = intval($_POST['id']);
             $nama = $_POST['nama'];
             $kategori = $_POST['kategori'];
             $deskripsi = $_POST['deskripsi'];
-            $jumlah_stok = $_POST['jumlah_stok'];
-            $harga = $_POST['harga'];
+            $jumlah_stok = intval($_POST['jumlah_stok']);
+            $harga = floatval($_POST['harga']);
             $pemasok = $_POST['pemasok'];
-            $id = $_POST['id'];
+
+            // Debugging
+            error_log("ID: $id, Nama: $nama, Kategori: $kategori, Deskripsi: $deskripsi, Jumlah Stok: $jumlah_stok, Harga: $harga, Pemasok: $pemasok");
 
             $query = "UPDATE pengelolaan_Barang SET nama = :nama, kategori = :kategori, deskripsi = :deskripsi, jumlah_stok = :jumlah_stok, harga = :harga, pemasok = :pemasok WHERE id = :id";
             $stmt = $this->conn->prepare($query);
@@ -66,10 +69,10 @@ class PengelolaanBarang
             $result = $stmt->execute();
 
             if ($result) {
-                $_SESSION['status'] = "Added Task Successfully";
+                $_SESSION['status'] = "Updated Item Successfully";
                 header("Location: /barang");
             } else {
-                $_SESSION['status'] = "Added Task Failed";
+                $_SESSION['status'] = "Update Item Failed";
                 header("Location: /barang");
             }
         }
@@ -86,7 +89,16 @@ class PengelolaanBarang
         return $sth;
     }
 
+    public function getItemById($id) {
+        $query = "SELECT * FROM pengelolaan_Barang WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
 }
 
 $code = new PengelolaanBarang();
 $code->addedItem();
+$code->updateItem();
